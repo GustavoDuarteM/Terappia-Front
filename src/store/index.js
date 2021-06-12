@@ -4,7 +4,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    jwt_auth: '123456',
+    jwt_auth: '',
     jwt_refresh: '',
   },
   mutations: {
@@ -17,11 +17,8 @@ export default new Vuex.Store({
     }
   },
   getters:{
-    get_jwt_auth(state){
-      state.jwt_auth
-    },
-    get_jwt_refresh(state){
-      state.jwt_refresh
+    user_authenticated(state){
+      return state.jwt_auth && state.jwt_refresh
     }
   },
   actions: {},
