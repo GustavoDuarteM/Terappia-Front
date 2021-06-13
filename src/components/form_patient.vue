@@ -62,10 +62,10 @@ export default {
   }),
   methods: {
     save_patient: function () {
-      if(this.patient){
-        console.log('s')
-      }else{
-        this.new_patient()
+      if (this.patient) {
+        this.update_patient();
+      } else {
+        this.new_patient();
       }
     },
     new_patient: function () {
@@ -85,6 +85,40 @@ export default {
           console.log(error);
         });
     },
+    update_patient() {
+      const params = {
+        patient: {
+          id: this.patient.id,
+          name: this.name,
+          email: this.email,
+          phone: this.phone,
+        },
+      };
+      this.$http.auth
+        .put("/patients", params)
+        .then(() => {
+          this.dialog = false;
+          this.update_list();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    init_patient: function () {
+      if (this.patient) {
+        this.name = this.patient.name;
+        this.email = this.patient.email;
+        this.phone = this.patient.phone;
+      }
+    },
+  },
+  beforeMount() {
+    this.init_patient();
+  },
+  beforeDestroy() {
+    this.name = "";
+    this.email = "";
+    this.phone = "";
   },
 };
 </script>
