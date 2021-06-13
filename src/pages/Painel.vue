@@ -21,12 +21,8 @@ export default {
   }),
   methods: {
     get_sessions: function () {
-      this.$http.main
-        .get("/sessions", {
-          headers: {
-            Authorization: `Bearer ${this.$store.getters.auth_token}`,
-          },
-        })
+      this.$http.auth
+        .get("/sessions")
         .then((response) => {
           this.sessions = response.data.sessions.map((session) => {
             session.end = new Date(session.end);

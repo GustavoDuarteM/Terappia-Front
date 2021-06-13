@@ -3,12 +3,13 @@ import App from './App.vue'
 import VueAxios from 'vue-axios'
 import router from './router'
 import store from './store'
-import { mainAxiosInstance } from './backend/axios'
+import { mainAxiosInstance, authAxiosInstance } from './backend/axios'
 import vuetify from './plugins/vuetify'
 
 
 Vue.use(VueAxios, {
-  main: mainAxiosInstance
+  main: mainAxiosInstance,
+  auth: authAxiosInstance
 })
 
 Vue.config.productionTip = false

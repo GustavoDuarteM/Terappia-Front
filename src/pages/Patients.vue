@@ -21,12 +21,8 @@ export default {
   }),
   methods: {
     get_patients: function () {
-      this.$http.main
-        .get("/patients", {
-          headers: {
-            Authorization: `Bearer ${this.$store.getters.auth_token}`,
-          },
-        })
+      this.$http.auth
+        .get("/patients")
         .then((response) => {
           this.patients = response.data.patients;
         })

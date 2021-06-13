@@ -10,19 +10,14 @@
 
 <script>
 export default {
-  methods:{
-    sign_out:function(){
-    this.$http.main
-      .delete("/sign_out", {
-        headers:{
-          'Authorization': `Bearer ${this.$store.getters.auth_token}`
-        }
-      }).then(() => {
-        this.$store.commit('clear_auth')
-        this.$router.push({ path: '/' }) 
-      })
-    }
-  }
+  methods: {
+    sign_out: function () {
+      this.$http.auth.delete("/sign_out").then(() => {
+        this.$store.commit("clear_auth");
+        this.$router.push({ path: "/" });
+      });
+    },
+  },
 };
 </script>
 

@@ -26,9 +26,9 @@ export default {
     session: {
       required: true,
     },
-    update_list:{
+    update_list: {
       required: true,
-    }
+    },
   },
   methods: {
     format_session_time: function (date) {
@@ -38,14 +38,10 @@ export default {
       return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
     },
     remove_session: function () {
-      this.$http.main
-        .delete("/sessions/" + this.session.id.toString(), {
-          headers: {
-            Authorization: `Bearer ${this.$store.getters.auth_token}`,
-          },
-        })
+      this.$http.auth
+        .delete("/sessions/" + this.session.id.toString())
         .then((response) => {
-          this.update_list()
+          this.update_list();
           console.log(response);
         })
         .catch((error) => {
