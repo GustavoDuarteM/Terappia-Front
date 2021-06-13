@@ -1,35 +1,27 @@
 <template>
-  <div>
+  <v-card class="mx-auto pa-3 mt-3" width="90%">
     <v-form ref="form" v-model="valid" lazy-validation>
-      <v-row>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            required
-            :type="show1 ? 'text' : 'password'"
-            name="Password"
-            label="Pasword"
-            @click:append="show1 = !show1"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <v-text-field
+        v-model="email"
+        :rules="emailRules"
+        label="E-mail"
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="password"
+        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+        required
+        :type="show1 ? 'text' : 'password'"
+        name="Password"
+        label="Pasword"
+        @click:append="show1 = !show1"
+      ></v-text-field>
 
       <v-btn color="success" class="mr-4" @click="signin" :loading="loading">
         Acessar
       </v-btn>
     </v-form>
-  </div>
+  </v-card>
 </template>
 
 <script setup>
@@ -48,20 +40,23 @@ export default {
   methods: {
     signin() {
       this.loading = true;
-      const user = { user: { email: this.email, password: this.password } }
+      const user = { user: { email: this.email, password: this.password } };
       this.$http.main
         .post("/sign_in", user)
         .then((response) => {
-          this.$store.commit('authenticate',{ jwt_auth: response.data.access_token, jwt_refresh: response.data.refresh_token })
-          if (this.$store.getters.user_authenticated){
-            this.$router.push({ path: '/painel' }) 
+          this.$store.commit("authenticate", {
+            jwt_auth: response.data.access_token,
+            jwt_refresh: response.data.refresh_token,
+          });
+          if (this.$store.getters.user_authenticated) {
+            this.$router.push({ path: "/painel" });
           }
           this.loading = false;
-          })
-        .catch((error) =>{
-           console.log(error)
-           this.loading = false;
-          });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.loading = false;
+        });
     },
   },
 };
