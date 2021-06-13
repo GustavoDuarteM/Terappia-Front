@@ -15,6 +15,9 @@ export default new Vuex.Store({
     clear_auth(state){
       state.jwt_auth = ''
       state.jwt_refresh = ''
+    },
+    set_jwt_auth(state, jwt_auth){
+      state.jwt_auth = jwt_auth
     }
   },
   getters:{

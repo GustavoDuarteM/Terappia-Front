@@ -18,12 +18,33 @@ const authAxiosInstance = axios.create({
 })
 
 authAxiosInstance.interceptors.request.use(config => {
-    config.headers = {
-      ...config.headers,
-      'Authorization': `Bearer ${store.getters.auth_token}`
-    }
+  config.headers = {
+    ...config.headers,
+    'Authorization': `Bearer ${store.getters.auth_token}`
+  }
   return config
 })
 
+authAxiosInstance.interceptors.response.use(null, error => {
+  if (error.response && error.response.config && error.response.status === 401) {
+    return mainAxiosInstance.post('/refresh', {}, {
+      headers: {
+        'Authorization': `Bearer ${store.getters.auth_token}`
+      }
+    }).then(response => {
+        store.commit('set_jwt_auth', response.data.access_token)
 
-export {mainAxiosInstance, authAxiosInstance}
+        let retry = error.response.config
+        retry.headers['Authorization'] = `Bearer ${store.getters.auth_token}`
+        return mainAxiosInstance.request(retry)
+      }).catch(error => {
+        store.commit('clear_auth')
+        location.replace('/')
+        return Promise.reject(error)
+      })
+  } else {
+    return Promise.reject(error)
+  }
+})
+
+export { mainAxiosInstance, authAxiosInstance }
