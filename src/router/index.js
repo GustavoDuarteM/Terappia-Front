@@ -8,8 +8,16 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    component: Home
+    path: '',
+    component: Home,
+    alias: ['/','/home'],
+    beforeEnter(to, from, next){
+      if(store.getters.user_authenticated){
+        next('/painel')
+      }else{
+        next()
+      }
+    }
   },
   {
     path: '/painel',

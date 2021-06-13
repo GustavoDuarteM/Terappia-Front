@@ -54,7 +54,6 @@ export default {
         .then((response) => {
           this.$store.commit('authenticate',{ jwt_auth: response.data.access_token, jwt_refresh: response.data.refresh_token })
           if (this.$store.getters.user_authenticated){
-            console.log(this.$store.state.jwt_auth)
             this.$router.push({ path: '/painel' }) 
           }
           this.loading = false;
