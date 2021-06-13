@@ -1,6 +1,8 @@
 <template>
   <v-toolbar  dense >
-      <v-toolbar-title>Terappia</v-toolbar-title>
+      <v-btn text plain to='/'>
+        <v-toolbar-title >Terappia</v-toolbar-title>
+      </v-btn>
       <v-spacer></v-spacer>
       <template v-if=autenticated>
         <Menu/>

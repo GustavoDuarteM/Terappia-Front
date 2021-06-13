@@ -15,7 +15,7 @@
 
     <v-card-actions>
       <v-btn depressed color="primary"> Editar </v-btn>
-      <v-btn depressed color="error" @click="remove_sessiion"> Remover </v-btn>
+      <v-btn depressed color="error" @click="remove_session"> Remover </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -37,7 +37,7 @@ export default {
     format_session_date: function (date) {
       return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
     },
-    remove_sessiion: function () {
+    remove_session: function () {
       this.$http.main
         .delete("/sessions/" + this.session.id.toString(), {
           headers: {

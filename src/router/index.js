@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../pages/Home'
 import Painel from '../pages/Painel'
+import Patients from '../pages/Patients'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -10,11 +11,11 @@ const routes = [
   {
     path: '',
     component: Home,
-    alias: ['/','/home'],
-    beforeEnter(to, from, next){
-      if(store.getters.user_authenticated){
+    alias: ['/', '/home'],
+    beforeEnter(to, from, next) {
+      if (store.getters.user_authenticated) {
         next('/painel')
-      }else{
+      } else {
         next()
       }
     }
@@ -22,10 +23,21 @@ const routes = [
   {
     path: '/painel',
     component: Painel,
-    beforeEnter(to, from, next){
-      if(store.getters.user_authenticated){
+    beforeEnter(to, from, next) {
+      if (store.getters.user_authenticated) {
         next()
-      }else{
+      } else {
+        next(false)
+      }
+    }
+  },
+  {
+    path: '/patients',
+    component: Patients,
+    beforeEnter(to, from, next) {
+      if (store.getters.user_authenticated) {
+        next()
+      } else {
         next(false)
       }
     }
