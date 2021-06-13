@@ -32,10 +32,10 @@ export default {
   },
   methods: {
     format_session_time: function (date) {
-      return `${date.getHours()}:${date.getMinutes()}`;
+      return date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
     },
     format_session_date: function (date) {
-      return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
+      return date.toLocaleDateString('pt-BR');
     },
     remove_session: function () {
       this.$http.auth
