@@ -1,13 +1,49 @@
 <template>
-  <h1>Teste de coisas</h1>
+  <div>
+    <div v-for="session in sessions" :key="session.id">
+      <SessionCard
+        :session="session"
+        class="ma-2"
+        :update_list="get_sessions"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
+import SessionCard from "../components/session_card.vue";
 export default {
-
-}
+  components: {
+    SessionCard,
+  },
+  data: () => ({
+    sessions: []
+  }),
+  methods: {
+    get_sessions: function () {
+      this.$http.main
+        .get("/sessions", {
+          headers: {
+            Authorization: `Bearer ${this.$store.getters.auth_token}`,
+          },
+        })
+        .then((response) => {
+          this.sessions = response.data.sessions.map((session) => {
+            session.end = new Date(session.end);
+            session.start = new Date(session.start);
+            return session;
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  beforeMount() {
+    this.get_sessions();
+  },
+};
 </script>
 
 <style>
-
 </style>
