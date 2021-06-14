@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn class="mx-1" color="primary" to="/patients">Pacientes</v-btn>
-    <v-btn class="mx-1" color="primary">Sessoes</v-btn>
+    <v-btn class="mx-1" color="primary" to="/sessions">Sessoes</v-btn>
     <v-btn icon @click="sign_out">
       <v-icon>mdi-export</v-icon>
     </v-btn>

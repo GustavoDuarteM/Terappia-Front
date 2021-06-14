@@ -5,7 +5,9 @@ import router from './router'
 import store from './store'
 import { mainAxiosInstance, authAxiosInstance } from './backend/axios'
 import vuetify from './plugins/vuetify'
+import DatetimePicker from 'vuetify-datetime-picker'
 
+Vue.use(DatetimePicker)
 
 Vue.use(VueAxios, {
   main: mainAxiosInstance,
