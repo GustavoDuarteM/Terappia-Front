@@ -75,10 +75,8 @@ export default {
       this.$http.auth
         .post("/patients", params)
         .then(() => {
+          this.clear_form()
           this.dialog = false;
-          this.name = "";
-          this.email = "";
-          this.phone = "";
           this.update_list();
         })
         .catch((error) => {
@@ -97,6 +95,7 @@ export default {
       this.$http.auth
         .put("/patients", params)
         .then(() => {
+          this.clear_form()
           this.dialog = false;
           this.update_list();
         })
@@ -111,15 +110,15 @@ export default {
         this.phone = this.patient.phone;
       }
     },
+    clear_form:function(){
+      this.name = "";
+      this.email = "";
+      this.phone = "";
+    }
   },
   beforeMount() {
     this.init_patient();
-  },
-  beforeDestroy() {
-    this.name = "";
-    this.email = "";
-    this.phone = "";
-  },
+  }
 };
 </script>
 
