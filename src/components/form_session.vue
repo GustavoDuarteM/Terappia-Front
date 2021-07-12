@@ -105,9 +105,6 @@ export default {
           this.dialog = false;
           this.update_list();
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     update_session() {
       const params = {
@@ -124,9 +121,6 @@ export default {
           this.dialog = false;
           this.update_list();
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     init_session: function () {
       if (this.session) {
@@ -142,9 +136,6 @@ export default {
         .then((response) => {
           this.patients = response.data.patients;
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     format_date_to_request: function (date) {
       return date.toISOString().slice(0, 16).replace("T", " ");

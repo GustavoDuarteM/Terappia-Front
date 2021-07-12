@@ -54,13 +54,9 @@ export default {
     remove_session: function () {
       this.$http.auth
         .delete("/sessions/" + this.session.id.toString())
-        .then((response) => {
+        .then(() => {
           this.update_list();
-          console.log(response);
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
 };

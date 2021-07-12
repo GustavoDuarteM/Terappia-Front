@@ -98,9 +98,6 @@ export default {
           params,
         })
         .then((response) => {
-          console.log(response.data.has_next);
-          console.log(response.data.has_prev);
-
           this.has_next = response.data.has_next;
           this.has_prev = response.data.has_prev;
           this.sessions = response.data.sessions.map((session) => {
@@ -109,9 +106,6 @@ export default {
             return session;
           });
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     formatDate: function (date) {
       let f_date = new Date(date);
