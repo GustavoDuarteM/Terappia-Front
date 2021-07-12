@@ -48,9 +48,6 @@ export default {
             return session;
           });
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
   computed: {

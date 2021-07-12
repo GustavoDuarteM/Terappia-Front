@@ -79,9 +79,6 @@ export default {
           this.dialog = false;
           this.update_list();
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     update_patient() {
       const params = {
@@ -99,9 +96,6 @@ export default {
           this.dialog = false;
           this.update_list();
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     init_patient: function () {
       if (this.patient) {
