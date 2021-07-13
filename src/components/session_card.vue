@@ -1,18 +1,23 @@
 <template>
-  <v-card outlined>
-    <v-card-title>
-      {{ session.patient.name }}
-    </v-card-title>
-
-    <v-card-subtitle>
-      Dia: {{ format_session_date(session.start) }}
-    </v-card-subtitle>
-
-    <v-card-text>
-      Hora: {{ format_session_time(session.start) }} -
-      {{ format_session_time(session.end) }}
-    </v-card-text>
-
+  <v-card outlined class="d-flex justify-space-between align-center">
+    <div>
+      <v-card-title class="d-flex align-center">
+        <v-icon class="mr-2"> mdi-account </v-icon>
+        <span>
+        {{ session.patient.name }}
+        </span>
+      </v-card-title>
+      
+      <v-card-text class="d-flex align-center">
+        <v-icon class="mr-2"> mdi-calendar </v-icon>
+        <span>
+          {{ format_session_date(session.start) }} às
+          {{ format_session_time(session.start) }} até
+          {{ format_session_time(session.end) }}
+        </span>
+      </v-card-text>
+    </div>
+    <div>
     <v-card-actions>
       <FormSessison
         form_title="Editar Sessão"
@@ -24,6 +29,7 @@
         Remover
       </v-btn>
     </v-card-actions>
+    </div>
   </v-card>
 </template>
 
@@ -49,14 +55,44 @@ export default {
       });
     },
     format_session_date: function (date) {
-      return date.toLocaleDateString("pt-BR");
+      let today = new Date(Date.now());
+      const locate_today = today.toLocaleDateString("pt-BR");
+      let tomorrow = new Date(today.setDate(today.getDate() + 1));
+      const locate_tomorrow = tomorrow.toLocaleDateString("pt-BR");
+      const meses = [
+        "Janeiro",
+        "Favereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+      ];
+      let message = "";
+      switch (date.toLocaleDateString("pt-BR")) {
+        case locate_today:
+          message = "Hoje";
+          break;
+        case locate_tomorrow:
+          message = "Amanha";
+          break;
+        default:
+          message = `Dia ${date.getDate()} de ${meses[date.getMonth()]}`;
+          break;
+      }
+      return message;
     },
     remove_session: function () {
       this.$http.auth
         .delete("/sessions/" + this.session.id.toString())
         .then(() => {
           this.update_list();
-        })
+        });
     },
   },
 };
