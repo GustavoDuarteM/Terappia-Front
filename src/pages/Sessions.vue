@@ -42,14 +42,18 @@
         />
       </v-card-title>
     </v-card>
-    <template v-if="sessions">
+    <template v-if="sessions_by_date">
       <div>
-        <div v-for="session in sessions" :key="session.id">
-          <SessionCard
-            :session="session"
-            class="ma-2"
-            :update_list="get_sessions"
-          />
+        <div v-for="([date,sessions],i) in sessions_by_date" :key="i">
+          <h4>{{date}}</h4>
+          <v-divider ></v-divider>
+          <div v-for="session in sessions" :key="session.id">
+            <SessionCard
+              :session="session"
+              class="ma-2"
+              :update_list="get_sessions"
+            />
+          </div>
         </div>
       </div>
       <Paginator
@@ -69,7 +73,7 @@ import SessionCard from "../components/session_card.vue";
 import ListLoading from "../components/list_loading.vue";
 import FormSessison from "../components/form_session.vue";
 import Paginator from "../components/paginator.vue";
-
+import format_date from '../helpers/format_date'
 export default {
   components: {
     SessionCard,
@@ -78,7 +82,7 @@ export default {
     Paginator,
   },
   data: () => ({
-    sessions: "",
+    sessions_by_date: "",
     date_menu: false,
     date_filter: null,
     calendar_date: new Date(Date.now()).toISOString().substr(0, 10),
@@ -88,7 +92,7 @@ export default {
   }),
   methods: {
     get_sessions: function () {
-      this.sessions = "";
+      this.sessions_by_date = "";
       let params = { page: this.page };
       if (this.date_filter) {
         params = { ...params, date: this.calendar_date };
@@ -100,12 +104,17 @@ export default {
         .then((response) => {
           this.has_next = response.data.has_next;
           this.has_prev = response.data.has_prev;
-          this.sessions = response.data.sessions.map((session) => {
-            session.end = new Date(session.end);
+          this.sessions_by_date = new Map();
+          response.data.sessions.forEach(session => {
             session.start = new Date(session.start);
-            return session;
-          });
-        })
+            session.end = new Date(session.end);
+            const date = format_date(session.start)
+            if(this.sessions_by_date.get(date) == undefined) {
+              this.sessions_by_date.set(date, [] )
+            }
+            this.sessions_by_date.get(date).push(session)
+          })
+        });
     },
     formatDate: function (date) {
       let f_date = new Date(date);
