@@ -2,12 +2,11 @@
   <v-card outlined class="d-flex justify-space-between align-center">
     <div>
       <v-card-title class="d-flex align-center">
-        <v-icon class="mr-2"> mdi-account </v-icon>
         <span>
-        {{ session.patient.name }}
+          {{ session.patient.name }}
         </span>
       </v-card-title>
-      
+
       <v-card-text class="d-flex align-center">
         <v-icon class="mr-2"> mdi-calendar </v-icon>
         <span>
@@ -18,24 +17,24 @@
       </v-card-text>
     </div>
     <div>
-    <v-card-actions>
-      <FormSessison
-        form_title="Editar Sessão"
-        btn_title="editar"
-        :session="session"
-        :update_list="update_list"
-      />
-      <v-btn class="ml-2" color="error" @click="remove_session">
-        Remover
-      </v-btn>
-    </v-card-actions>
+      <v-card-actions>
+        <FormSessison
+          form_title="Editar Sessão"
+          btn_title="editar"
+          :session="session"
+          :update_list="update_list"
+        />
+        <v-btn class="ml-2" color="error" @click="remove_session">
+          Remover
+        </v-btn>
+      </v-card-actions>
     </div>
   </v-card>
 </template>
 
 <script>
 import FormSessison from "../components/form_session.vue";
-import format_date from "../helpers/format_date"
+import format_date from "../helpers/format_date";
 export default {
   components: {
     FormSessison,

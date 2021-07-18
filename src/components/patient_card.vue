@@ -1,13 +1,14 @@
 <template>
-  <v-card outlined>
-    <v-card-title>
-      {{ patient.name }}
-    </v-card-title>
-    <v-card-subtitle>
-      <div>Email: {{ patient.email }}</div>
-      <div>Telefone: {{ patient.phone }}</div>
-    </v-card-subtitle>
-
+  <v-card outlined class="d-flex justify-space-between align-center">
+    <div>
+      <v-card-title class="d-flex align-center">
+        {{ patient.name }}
+      </v-card-title>
+      <v-card-text class="d-flex align-center">
+        <div><v-icon> mdi-email </v-icon> {{ patient.email }}</div>
+        <div><v-icon class="ml-3"> mdi-phone </v-icon> {{ patient.phone }}</div>
+      </v-card-text>
+    </div>
     <v-card-actions>
       <FormPatient
         form_title="Editar Paciente"
