@@ -14,11 +14,15 @@ const MONTHS = [
 ];
 
 export default function format_date (date, type = 'short') {
-  const today = new Date(Date.now());
+  const today_time= new Date(Date.now()).setHours('00','00','00')
+  const today = new Date(today_time);
+  
   const locate_today = today.toLocaleDateString("pt-BR");
-  const tomorrow = new Date(today.setDate(today.getDate() + 1));
+  
+  let tomorrow = new Date(today.setDate(today.getDate() + 1));
   const locate_tomorrow = tomorrow.toLocaleDateString("pt-BR");
-  const esterday = new Date(today.setDate(today.getDate() - 1));
+  
+  let esterday = new Date(today.setDate(today.getDate() - 2));
   const locate_esterday = esterday.toLocaleDateString("pt-BR");
   
   let message = "";
@@ -27,7 +31,7 @@ export default function format_date (date, type = 'short') {
       message = "Hoje";
       break;
     case locate_tomorrow:
-      message = "Amanha";
+      message = "Amanhã";
       break;
     case locate_esterday:
       message = "Ontem";
