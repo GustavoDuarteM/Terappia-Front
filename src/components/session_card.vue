@@ -35,6 +35,7 @@
 
 <script>
 import FormSessison from "../components/form_session.vue";
+import format_date from "../helpers/format_date"
 export default {
   components: {
     FormSessison,
@@ -55,37 +56,7 @@ export default {
       });
     },
     format_session_date: function (date) {
-      let today = new Date(Date.now());
-      const locate_today = today.toLocaleDateString("pt-BR");
-      let tomorrow = new Date(today.setDate(today.getDate() + 1));
-      const locate_tomorrow = tomorrow.toLocaleDateString("pt-BR");
-      const meses = [
-        "Janeiro",
-        "Favereiro",
-        "Março",
-        "Abril",
-        "Maio",
-        "Junho",
-        "Julho",
-        "Agosto",
-        "Setembro",
-        "Outubro",
-        "Novembro",
-        "Dezembro",
-      ];
-      let message = "";
-      switch (date.toLocaleDateString("pt-BR")) {
-        case locate_today:
-          message = "Hoje";
-          break;
-        case locate_tomorrow:
-          message = "Amanha";
-          break;
-        default:
-          message = `Dia ${date.getDate()} de ${meses[date.getMonth()]}`;
-          break;
-      }
-      return message;
+      return format_date(date);
     },
     remove_session: function () {
       this.$http.auth
