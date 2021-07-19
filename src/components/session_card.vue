@@ -3,7 +3,7 @@
     <div>
       <v-card-title class="d-flex align-center">
         <span>
-          {{ session.patient.name }}
+          <ModalPatient :name ="session.patient.name" :patient_id="session.patient.id"/>
         </span>
       </v-card-title>
 
@@ -35,9 +35,11 @@
 <script>
 import FormSessison from "../components/form_session.vue";
 import format_date from "../helpers/format_date";
+import ModalPatient from "../components/modal_patient.vue"
 export default {
   components: {
     FormSessison,
+    ModalPatient
   },
   props: {
     session: {
